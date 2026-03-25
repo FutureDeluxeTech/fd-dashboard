@@ -12,8 +12,7 @@
 // It will look something like:
 // https://docs.google.com/spreadsheets/d/e/2PACX-xxxxx/pub?gid=123456&single=true&output=csv
 
-export const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR027YM_ZUYTew_zCz4xW81uhGJ0MPVPZh2Jd_ErgmqwUqi33mpKhUB4YXF5CAKLRxVLFVoW648OQtQ/pub?gid=13526005&single=true&output=csv
-";
+export const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR027YM_ZUYTew_zCz4xW81uhGJ0MPVPZh2Jd_ErgmqwUqi33mpKhUB4YXF5CAKLRxVLFVoW648OQtQ/pub?gid=13526005&single=true&output=csv";
 
 // ============================================================
 // REVENUE OVERRIDES — update these each year
