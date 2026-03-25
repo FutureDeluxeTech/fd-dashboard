@@ -3,10 +3,14 @@ import { SHEET_CSV_URL, REVENUE_OVERRIDES } from "./config.js";
 
 function num(v) {
   if (v === null || v === undefined || v === "") return null;
-  const s = String(v).replace(/[£,\s\t]/g, "").trim();
+  let s = String(v).replace(/[£,\s\t]/g, "").trim();
   if (s === "" || s.toLowerCase() === "none" || s.toLowerCase() === "nan" || s.startsWith("check")) return null;
+  // Handle percentage format: "53.03%" -> 0.5303
+  const isPct = s.endsWith("%");
+  if (isPct) s = s.slice(0, -1);
   const n = Number(s);
-  return isNaN(n) ? null : n;
+  if (isNaN(n)) return null;
+  return isPct ? n / 100 : n;
 }
 
 function findCol(headers, ...candidates) {
