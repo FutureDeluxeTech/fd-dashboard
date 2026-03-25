@@ -42,7 +42,7 @@ export async function fetchDashboardData() {
     margin: findCol(H, "MARGIN"),
     margin2122: findCol(H, "MARGIN 2021-2022", "MARGIN 2021-22"),
     budget: findCol(H, "FINAL BUDGET GBP", "FINAL BUDGET GBP "),
-    freelance: findCol(H, "Freelance Spend"),
+    freelance: findCol(H, "Freelance GBP", "Freelance Spend"),
     creativeAlignment: findCol(H, "Creative Alignment Score"),
     creativeQuality: findCol(H, "Creative Quality Score"),
     executionFit: findCol(H, "Execution Fit Score"),
@@ -155,6 +155,11 @@ export async function fetchDashboardData() {
     const bestOverall = [...scored].filter((p) => p.overallFD !== null).sort((a, b) => b.overallFD - a.overallFD).slice(0, 3);
     const worstCommercial = [...scored].filter((p) => p.commercialScore !== null).sort((a, b) => a.commercialScore - b.commercialScore).slice(0, 3);
 
+    const flTotal = yp.reduce((s, p) => s + (p.freelanceSpend || 0), 0);
+    const flProjects = yp.filter((p) => p.freelanceSpend > 0).length;
+    const totalBudget = yp.reduce((s, p) => s + (p.budget || 0), 0);
+    const flPctOfBudget = totalBudget > 0 ? Math.round((flTotal / totalBudget) * 1000) / 10 : 0;
+
     yearData[yr] = {
       year: yr, n, revenue,
       revPerProject: Math.round(revenue / n),
@@ -170,6 +175,7 @@ export async function fetchDashboardData() {
       bothHigh: n > 0 ? Math.round((bothHigh / n) * 100) : 0,
       negMargin: withMargin.length ? Math.round((negMargin / withMargin.length) * 100) : 0,
       rwCreative: Math.round(rwCreative * 100) / 100,
+      flTotal, flProjects, flPctOfBudget,
       tiers, topCreative, bestOverall, worstCommercial,
     };
   }
